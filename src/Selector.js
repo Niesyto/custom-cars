@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from "react-redux";
+import { modelChanged, gearboxChanged, colorChanged, engineChanged } from "./redux/actions";
 
 const useStyles = makeStyles({
     selectorButton: {
@@ -24,14 +26,32 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Selector(props) {
+function Selector(props) {
     const classes = useStyles();
     const [selectedOption, setSelectedOption] = React.useState(0);
 
     const handleClick = (index) => {
+        //Set selected tab
         setSelectedOption(index);
+        switch (props.name) {
+            case "Model":
+                //Update redux state
+                props.modelChanged(props.options[index].name, props.options[index].price);
+                break;
+            case "Color":
+                props.colorChanged(props.options[index].name, props.options[index].price);
+                break;
+            case "Engine":
+                props.engineChanged(props.options[index].name, props.options[index].price);
+                break;
+            case "Gearbox":
+                props.gearboxChanged(props.options[index].name, props.options[index].price);
+                break;
+            default:
+                break;
+        }
     }
-
+    //If props don't contain list of options
     if (!props.options)
         return (
             <div >
@@ -51,7 +71,9 @@ export default function Selector(props) {
                     indicator: classes.indicator
                 }}
             >
+                
                 {props.options.map((option, index) =>
+                //Map each option to a single tab
                     <Tab
                         label={option.name}
                         key={index}
@@ -65,3 +87,14 @@ export default function Selector(props) {
         </div>
     );
 }
+
+
+const mapModelDispatchToProps = { modelChanged, gearboxChanged, colorChanged, engineChanged };
+
+const mapStateToProps = state => {
+    return {
+        car: state.customCar
+    };
+};
+
+export const SelectorContainer = connect(mapStateToProps, mapModelDispatchToProps)(Selector); 

@@ -1,0 +1,35 @@
+[
+    {
+        "name": "PRO RS3",
+        "price": 200000,
+        "engines": [
+            "5.2L 532BHP",
+            "4.2L 443BHP",
+            "3.6L 374BHP",
+            "2.0 166BHP"
+        ]
+    },
+    {
+        "name": "UBER RS2",
+        "price": 300000,
+        "engines": [
+            "5.2L 532BHP",
+            "4.2L 443BHP"
+        ]
+    },
+    {
+        "name": "STANDARD",
+        "price": 180000,
+        "engines": [
+            "3.6L 374BHP",
+            "2.0 166BHP"
+        ]
+    },
+    {
+        "name": "WK",
+        "price": 150000,
+        "engines": [
+            "2.0 166BHP"
+        ]
+    }
+]
