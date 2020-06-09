@@ -1,7 +1,8 @@
-export const modelChanged = (model, cost) => ({
+export const modelChanged = (model, cost, imageSource) => ({
   type: 'MODEL_CHANGED',
   model,
-  cost
+  cost,
+  imageSource
 });
 
 export const colorChanged = (color, cost) => ({

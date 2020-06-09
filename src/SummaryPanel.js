@@ -4,11 +4,9 @@ import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    textLeft: {
-        textAlign: "left"
-    },
     textRight: {
-        textAlign: "right"
+        display: "inline-block",
+        float: "right"
     },
     background: {
         backgroundColor: "black",
@@ -17,14 +15,32 @@ const useStyles = makeStyles({
     imagePaper: {
         backgroundColor: "white",
         width: "100%",
-        height: "300px",
+        height: "275px",
         marginTop: "30px",
-        marginBottom: "30px"
+        marginBottom: "30px",
+        display:"inline-flex",
+        minWidth:"172px"
     },
-    infoPanel: {
-        width: "50%",
-        display: "inline-block"
+    dataLine: {
+        display: "flex",
+        justifyContent:"space-between"
+    },
+    carIcon: {
+        height: "100%",
+        display: "block",
+        marginLeft: "auto",
+        marginRight: "auto"
+    },
+    filterRed: {
+        filter: "invert(16%) sepia(100%) saturate(6709%) hue-rotate(8deg) brightness(101%) contrast(123%)"
+    },
+    filterSilver: {
+        filter: "invert(100%) sepia(1%) saturate(3497%) hue-rotate(68deg) brightness(119%) contrast(63%)"
+    },
+    filterGold: {
+        filter: "invert(60%) sepia(58%) saturate(454%) hue-rotate(337deg) brightness(90%) contrast(87%)"
     }
+
 });
 
 
@@ -38,42 +54,57 @@ export function SummaryPanel(props) {
                 Summary
             </Typography>
             <div className={classes.imagePaper}>
+                {props.car.imageSource ?
+                    <img
+                        src={props.car.imageSource}
+                        alt="car model"
+                        className={[classes.carIcon, "classes.filterRed"].join(' ')}
+                    />
+                    : null}
+            </div>
+            <div >
+                <div className={classes.dataLine}>
+                    <Typography variant="h6" >
+                        Model
+                </Typography>
+                    <Typography variant="h6" >
+                       {props.car.model}
+                    </Typography>
+                </div>
+                <div className={classes.dataLine}>
+                    <Typography variant="h6">
+                        Engine
+                </Typography>
+                    <Typography variant="h6">
+                        {props.car.engine}
+                    </Typography>
+                </div>
+                <div className={classes.dataLine}>
+                    <Typography variant="h6" >
+                        Gearbox
+                </Typography>
+                    <Typography variant="h6" >
+                        {props.car.gearbox}
+                    </Typography>
+                </div>
+                <div className={classes.dataLine}>
+                    <Typography variant="h6" >
+                        Color
+                </Typography>
+                    <Typography variant="h6" >
+                        {props.car.color}
+                    </Typography>
+                </div>
+                <div className={classes.dataLine} style={{marginTop:"30px"}}>
+                    <Typography variant="h6" >
+                        Price
+                </Typography>
+                    <Typography variant="h6" >
+                        ${props.car.totalCost}
+                    </Typography>
+                </div>
             </div>
 
-            <div className={classes.infoPanel}>
-                <Typography variant="h6" className={classes.textLeft}>
-                    Model
-                </Typography>
-                <Typography variant="h6" className={classes.textLeft}>
-                    Engine
-                </Typography>
-                <Typography variant="h6" className={classes.textLeft}>
-                    Gearbox
-                </Typography>
-                <Typography variant="h6" className={classes.textLeft}>
-                    Color
-                </Typography>
-                <Typography variant="h6" className={classes.textLeft} style={{ marginTop: "30px" }}>
-                    Price
-                </Typography>
-            </div>
-            <div className={classes.infoPanel}>
-                <Typography variant="h6" className={classes.textRight}>
-                    {props.car.model}
-                </Typography>
-                <Typography variant="h6" className={classes.textRight}>
-                    {props.car.engine}
-                </Typography>
-                <Typography variant="h6" className={classes.textRight}>
-                    {props.car.gearbox}
-                </Typography>
-                <Typography variant="h6" className={classes.textRight}>
-                    {props.car.color}
-                </Typography>
-                <Typography variant="h6" className={classes.textRight} style={{ marginTop: "30px" }}>
-                    ${props.car.totalCost}
-                </Typography>
-            </div>
 
         </div>
     );

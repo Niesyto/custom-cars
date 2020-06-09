@@ -1,16 +1,17 @@
 const initialState = {
     //Selected elements' names
-    model: "a",
-    engine: "b",
-    gearbox: "c",
-    color: "d",
+    model: "",
+    engine: "",
+    gearbox: "",
+    color: "",
     //Cost of all elements summed
-    totalCost: 9,
+    totalCost: 0,
     //Cost of single element
     modelCost: 0,
     engineCost: 0,
     gearboxCost: 0,
-    colorCost: 0
+    colorCost: 0,
+    imageSource: ""
 }
 
 export const customCar = (state = initialState, action) => {
@@ -20,7 +21,8 @@ export const customCar = (state = initialState, action) => {
             return Object.assign({}, state, {
                 model: action.model,
                 modelCost: action.cost,
-                totalCost: state.engineCost + state.gearboxCost + state.colorCost + action.cost
+                totalCost: state.engineCost + state.gearboxCost + state.colorCost + action.cost,
+                imageSource: action.imageSource
             });
         case 'ENGINE_CHANGED':
             return Object.assign({}, state, {

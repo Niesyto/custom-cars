@@ -36,7 +36,7 @@ function Selector(props) {
         switch (props.name) {
             case "Model":
                 //Update redux state
-                props.modelChanged(props.options[index].name, props.options[index].price);
+                props.modelChanged(props.options[index].name, props.options[index].price, props.options[index].imageSource);
                 break;
             case "Color":
                 props.colorChanged(props.options[index].name, props.options[index].price);
@@ -71,9 +71,9 @@ function Selector(props) {
                     indicator: classes.indicator
                 }}
             >
-                
+
                 {props.options.map((option, index) =>
-                //Map each option to a single tab
+                    //Map each option to a single tab
                     <Tab
                         label={option.name}
                         key={index}

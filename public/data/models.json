@@ -2,6 +2,7 @@
     {
         "name": "PRO RS3",
         "price": 200000,
+        "imageSource":"./pro.svg",
         "engines": [
             "5.2L 532BHP",
             "4.2L 443BHP",
@@ -12,6 +13,7 @@
     {
         "name": "UBER RS2",
         "price": 300000,
+        "imageSource":"./uber.svg",
         "engines": [
             "5.2L 532BHP",
             "4.2L 443BHP"
@@ -20,6 +22,7 @@
     {
         "name": "STANDARD",
         "price": 180000,
+        "imageSource":"./standart.svg",
         "engines": [
             "3.6L 374BHP",
             "2.0 166BHP"
@@ -28,6 +31,7 @@
     {
         "name": "WK",
         "price": 150000,
+        "imageSource":"./wk.svg",
         "engines": [
             "2.0 166BHP"
         ]
