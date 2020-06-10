@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
+import DisplayPartInfo from './DisplayPartInfo.js';
 
 const useStyles = makeStyles({
     textRight: {
@@ -18,12 +19,8 @@ const useStyles = makeStyles({
         height: "275px",
         marginTop: "30px",
         marginBottom: "30px",
-        display:"inline-flex",
-        minWidth:"172px"
-    },
-    dataLine: {
-        display: "flex",
-        justifyContent:"space-between"
+        display: "inline-flex",
+        minWidth: "172px"
     },
     carIcon: {
         height: "100%",
@@ -31,6 +28,7 @@ const useStyles = makeStyles({
         marginLeft: "auto",
         marginRight: "auto"
     },
+    //Coloring SVG elements is complicated, best solution is using CSS - filter
     filterRed: {
         filter: "invert(16%) sepia(100%) saturate(6709%) hue-rotate(8deg) brightness(101%) contrast(123%)"
     },
@@ -48,6 +46,24 @@ const useStyles = makeStyles({
 export function SummaryPanel(props) {
     const classes = useStyles();
 
+    let imageClass;
+    //Evaluate image classes based on Redux state
+    switch (props.car.color) {
+        case "Red":
+            imageClass = [classes.carIcon, classes.filterRed].join(' ');
+            break;
+        case "Gold":
+            imageClass = [classes.carIcon, classes.filterGold].join(' ');
+            break;
+        case "Silver":
+            imageClass = [classes.carIcon, classes.filterSilver].join(' ');
+            break;
+        default:
+            imageClass = classes.carIcon;
+            break;
+    }
+
+
     return (
         <div className={classes.background}>
             <Typography variant="h5" className={classes.textRight}>
@@ -58,54 +74,17 @@ export function SummaryPanel(props) {
                     <img
                         src={props.car.imageSource}
                         alt="car model"
-                        className={[classes.carIcon, "classes.filterRed"].join(' ')}
+                        className={imageClass}
                     />
                     : null}
             </div>
             <div >
-                <div className={classes.dataLine}>
-                    <Typography variant="h6" >
-                        Model
-                </Typography>
-                    <Typography variant="h6" >
-                       {props.car.model}
-                    </Typography>
-                </div>
-                <div className={classes.dataLine}>
-                    <Typography variant="h6">
-                        Engine
-                </Typography>
-                    <Typography variant="h6">
-                        {props.car.engine}
-                    </Typography>
-                </div>
-                <div className={classes.dataLine}>
-                    <Typography variant="h6" >
-                        Gearbox
-                </Typography>
-                    <Typography variant="h6" >
-                        {props.car.gearbox}
-                    </Typography>
-                </div>
-                <div className={classes.dataLine}>
-                    <Typography variant="h6" >
-                        Color
-                </Typography>
-                    <Typography variant="h6" >
-                        {props.car.color}
-                    </Typography>
-                </div>
-                <div className={classes.dataLine} style={{marginTop:"30px"}}>
-                    <Typography variant="h6" >
-                        Price
-                </Typography>
-                    <Typography variant="h6" >
-                        ${props.car.totalCost}
-                    </Typography>
-                </div>
+                <DisplayPartInfo partName="Model" partValue={props.car.model} />
+                <DisplayPartInfo partName="Engine" partValue={props.car.engine} />
+                <DisplayPartInfo partName="Gearbox" partValue={props.car.gearbox} />
+                <DisplayPartInfo partName="Color" partValue={props.car.color} />
+                <DisplayPartInfo partName="Price" partValue={`$${props.car.totalCost}`} style={{ marginTop: "30px" }} />
             </div>
-
-
         </div>
     );
 }

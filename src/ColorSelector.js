@@ -4,49 +4,41 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from "react-redux";
-import { modelChanged, gearboxChanged, engineChanged } from "./redux/actions";
+import { colorChanged } from "./redux/actions";
 
 const useStyles = makeStyles({
     selectorButton: {
         minWidth: "unset",
+        width: "60px",
+        height: "60px",
         backgroundColor: "#dfdfdf",
         color: "#000000",
         fontWeight: "bold",
         lineHeight: "unset",
         fontSize: "15px",
-        margin: "5px"
+        margin: "3px",
+        opacity: 1
     },
     selected: {
-        backgroundColor: "#2b2b2b",
-        color: "#d4d4d4",
+        color: "#000000",
+        borderWidth: "2px",
+        borderStyle: "solid"
     },
     indicator: {
         display: "none"
     }
 });
 
-function Selector(props) {
+function ColorSelector(props) {
     const classes = useStyles();
     const [selectedOption, setSelectedOption] = React.useState(0);
 
     const handleClick = (index) => {
         //Set selected tab
         setSelectedOption(index);
-        switch (props.name) {
-            case "Model":
-                //Update redux state
-                props.modelChanged(props.options[index].name, props.options[index].price, props.options[index].imageSource);
-                break;
-            case "Engine":
-                props.engineChanged(props.options[index].name, props.options[index].price);
-                break;
-            case "Gearbox":
-                props.gearboxChanged(props.options[index].name, props.options[index].price);
-                break;
-            default:
-                break;
-        }
+        props.colorChanged(props.options[index].name, props.options[index].price);
     }
+
     //If props don't contain list of options
     if (!props.options)
         return (
@@ -71,7 +63,7 @@ function Selector(props) {
                 {props.options.map((option, index) =>
                     //Map each option to a single tab
                     <Tab
-                        label={option.name}
+                        style={{ backgroundColor: option.colorValue }}
                         key={index}
                         onClick={handleClick.bind(this, index)}
                         classes={{
@@ -85,7 +77,7 @@ function Selector(props) {
 }
 
 
-const mapModelDispatchToProps = { modelChanged, gearboxChanged, engineChanged };
+const mapModelDispatchToProps = { colorChanged };
 
 const mapStateToProps = state => {
     return {
@@ -93,4 +85,4 @@ const mapStateToProps = state => {
     };
 };
 
-export const SelectorContainer = connect(mapStateToProps, mapModelDispatchToProps)(Selector); 
+export const ColorSelectorContainer = connect(mapStateToProps, mapModelDispatchToProps)(ColorSelector); 

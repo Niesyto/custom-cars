@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Red",
+        "price": 0,
+        "colorValue":"#ff0000"
+    },
+    {
+        "name": "Silver",
+        "price": 500,
+        "colorValue":"#d0d0d0"  
+    },
+    {
+        "name": "Gold",
+        "price": 1000,
+        "colorValue":"#d88756"
+    },
+    {
+        "name": "Black",
+        "price": 0,
+        "colorValue":"#181818"
+    }
+]

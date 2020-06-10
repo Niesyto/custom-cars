@@ -1,26 +1,24 @@
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { SelectorContainer } from './Selector.js'
+import { ColorSelectorContainer } from './ColorSelector.js'
 
-
-//import models from './data/models.json'
-//import engines from './data/engines.json'
 
 
 export default function SelectionPanel() {
     const [models, setModels] = React.useState([]);
+    const [colors, setColors] = React.useState([]);
 
     useEffect(() => {
-        //Fetch first table once the component first mountss
-        async function fetchData() {
-            const fetchedData = await fetch('./data/models.json')
+        //Fetch color and models tables once the component first mounts
+        async function fetchData(file, setFunction) {
+            const fetchedData = await fetch(file)
                 .then(res => res.json())
-                .then((result) =>  setModels(result))
+                .then((result) => setFunction(result))
         }
-        fetchData();
+        fetchData('./data/models.json', setModels);
+        fetchData('./data/colors.json', setColors);
     }, []);
-
-
 
 
     return (
@@ -28,15 +26,11 @@ export default function SelectionPanel() {
             <Typography variant="h5" color="textPrimary" style={{ fontWeight: "bold" }}>
                 CKONFIG 5.1
             </Typography>
-            {<SelectorContainer name="Model" options={models}>
-            </SelectorContainer>
-            /* 
-            <SelectorContainer name="Engine" options={engines}>
-    </SelectorContainer>*/}
-            <SelectorContainer name="Gearbox">
-            </SelectorContainer>
-            <SelectorContainer name="Color">
-            </SelectorContainer>
+
+            <SelectorContainer name="Model" options={models} />
+            <SelectorContainer name="Engine" />
+            <SelectorContainer name="Gearbox" />
+            <ColorSelectorContainer name="Color" options={colors} />
         </>
     );
 }
