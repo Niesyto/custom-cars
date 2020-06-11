@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from "react-redux";
-import { modelChanged, gearboxChanged, engineChanged } from "./redux/actions";
 
 const useStyles = makeStyles({
     selectorButton: {
-        minWidth: "unset",
         backgroundColor: "#dfdfdf",
         color: "#000000",
         fontWeight: "bold",
         lineHeight: "unset",
         fontSize: "15px",
-        margin: "5px"
+        margin: "5px",
+        flexShrink:1
     },
     selected: {
         backgroundColor: "#2b2b2b",
@@ -25,9 +23,17 @@ const useStyles = makeStyles({
     }
 });
 
-function Selector(props) {
+export default function Selector(props) {
     const classes = useStyles();
-    const [selectedOption, setSelectedOption] = React.useState(0);
+    const [selectedOption, setSelectedOption] = React.useState(false);
+    const [options, setOptions] = React.useState([]);
+
+    //Reset selected element after new options are passed
+    useEffect(()=>{
+        setOptions(props.options);
+        setSelectedOption(false);
+    },[props.options])
+
 
     const handleClick = (index) => {
         //Set selected tab
@@ -35,20 +41,21 @@ function Selector(props) {
         switch (props.name) {
             case "Model":
                 //Update redux state
-                props.modelChanged(props.options[index].name, props.options[index].price, props.options[index].imageSource);
+                props.optionChanged(options[index].name, options[index].price, options[index].imageSource);
                 break;
             case "Engine":
-                props.engineChanged(props.options[index].name, props.options[index].price);
+                props.optionChanged(options[index].name, options[index].price);
                 break;
             case "Gearbox":
-                props.gearboxChanged(props.options[index].name, props.options[index].price);
+                props.optionChanged(options[index].name, options[index].price);
                 break;
             default:
                 break;
         }
     }
+
     //If props don't contain list of options
-    if (!props.options)
+    if (!options)
         return (
             <div >
                 <Typography variant="h6" color="textPrimary">
@@ -67,8 +74,7 @@ function Selector(props) {
                     indicator: classes.indicator
                 }}
             >
-
-                {props.options.map((option, index) =>
+                {options.map((option, index) =>
                     //Map each option to a single tab
                     <Tab
                         label={option.name}
@@ -83,14 +89,3 @@ function Selector(props) {
         </div>
     );
 }
-
-
-const mapModelDispatchToProps = { modelChanged, gearboxChanged, engineChanged };
-
-const mapStateToProps = state => {
-    return {
-        car: state.customCar
-    };
-};
-
-export const SelectorContainer = connect(mapStateToProps, mapModelDispatchToProps)(Selector); 

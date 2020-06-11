@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from "react-redux";
-import { colorChanged } from "./redux/actions";
 
 const useStyles = makeStyles({
     selectorButton: {
@@ -29,18 +27,27 @@ const useStyles = makeStyles({
     }
 });
 
-function ColorSelector(props) {
+export default function ColorSelector(props) {
     const classes = useStyles();
-    const [selectedOption, setSelectedOption] = React.useState(0);
+    const [selectedOption, setSelectedOption] = React.useState(false);
+    const [options, setOptions] = React.useState([]);
+
+    //Reset selected element after new options are passed
+    useEffect(()=>{
+        setOptions(props.options);
+        setSelectedOption(false);
+    },[props.options])
+
+
 
     const handleClick = (index) => {
         //Set selected tab
         setSelectedOption(index);
-        props.colorChanged(props.options[index].name, props.options[index].price);
+        props.optionChanged(options[index].name, options[index].price);
     }
 
     //If props don't contain list of options
-    if (!props.options)
+    if (!options)
         return (
             <div >
                 <Typography variant="h6" color="textPrimary">
@@ -60,7 +67,7 @@ function ColorSelector(props) {
                 }}
             >
 
-                {props.options.map((option, index) =>
+                {options.map((option, index) =>
                     //Map each option to a single tab
                     <Tab
                         style={{ backgroundColor: option.colorValue }}
@@ -76,13 +83,3 @@ function ColorSelector(props) {
     );
 }
 
-
-const mapModelDispatchToProps = { colorChanged };
-
-const mapStateToProps = state => {
-    return {
-        car: state.customCar
-    };
-};
-
-export const ColorSelectorContainer = connect(mapStateToProps, mapModelDispatchToProps)(ColorSelector); 
