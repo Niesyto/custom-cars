@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    selectorButton: {
+    colorSelectorButton: {
         minWidth: "unset",
         width: "60px",
         height: "60px",
@@ -17,12 +17,12 @@ const useStyles = makeStyles({
         margin: "3px",
         opacity: 1
     },
-    selected: {
+    selectedColor: {
         color: "#000000",
         borderWidth: "2px",
         borderStyle: "solid"
     },
-    indicator: {
+    colorIndicator: {
         display: "none"
     }
 });
@@ -63,7 +63,7 @@ export default function ColorSelector(props) {
             <Tabs
                 value={selectedOption}
                 classes={{
-                    indicator: classes.indicator
+                    indicator: classes.colorIndicator
                 }}
             >
 
@@ -74,8 +74,8 @@ export default function ColorSelector(props) {
                         key={index}
                         onClick={handleClick.bind(this, index)}
                         classes={{
-                            root: classes.selectorButton,
-                            selected: classes.selected
+                            root: classes.colorSelectorButton,
+                            selected: classes.selectedColor
                         }} />
                 )}
             </Tabs>
