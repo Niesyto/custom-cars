@@ -9,13 +9,13 @@ function App() {
   return (
       <div className="App">
         <header className="App-header" >
-          <Grid container justify="center" direction="row" className="Container" alignItems="center" alignContent="center" >
-            <Grid item sm={12} md={8} style={{maxWidth:"100%"}}>
+          <Grid container justify="center" direction="row" className="Container" alignItems="center" alignContent="center" >        
+            <Grid item xs={12} lg={7} style={{maxWidth:"100%"}}>
               <SelectionPanelContainer />
             </Grid>
-            <Grid item sm={12} md={4} style={{maxWidth:"unset"}}>
+            <Grid item xs={12} lg={3} style={{maxWidth:"unset"}}>
               <SummaryContainer />
-            </Grid>
+            </Grid>        
           </Grid>
         </header>
       </div>

@@ -41,7 +41,7 @@ function SelectionPanel(props) {
         setAvailableGearboxes(gearboxes.filter(contains(props.car.engine)));
     }, [gearboxes, props.car.engine]);
 
-    
+    //Higher order function that return callback for array filtering
     function contains(searchedValue) {
         return function (element) {     
             return (element.availableIn.includes(searchedValue));
