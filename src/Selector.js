@@ -70,7 +70,7 @@ export default function Selector(props) {
             </Typography>
             {options[0].name}
 
-            {options.map((option) => { option.name }
+            {options.map((option) => option.name 
             )}
 
             <Tabs
