@@ -21,7 +21,7 @@ function SelectionPanel(props) {
     useEffect(() => {
         //Fetch parts data tables once the component first mounts
         async function fetchData(file, setFunction) {
-            const fetchedData = await fetch(file)
+            await fetch(file)
                 .then(res => res.json())
                 .then((result) => setFunction(result))
         }
