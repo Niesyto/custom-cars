@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         lineHeight: "unset",
         fontSize: "15px",
         margin: "5px",
-        flexShrink:1
+        flexShrink: 1
     },
     selected: {
         backgroundColor: "#2b2b2b",
@@ -29,10 +29,10 @@ export default function Selector(props) {
     const [options, setOptions] = React.useState([]);
 
     //Reset selected element after new options are passed
-    useEffect(()=>{
+    useEffect(() => {
         setOptions(props.options);
         setSelectedOption(false);
-    },[props.options])
+    }, [props.options])
 
 
     const handleClick = (index) => {
@@ -68,6 +68,11 @@ export default function Selector(props) {
             <Typography variant="h6" color="textPrimary">
                 {props.name}
             </Typography>
+            {options[0].name}
+
+            {options.map((option) => { option.name }
+            )}
+
             <Tabs
                 value={selectedOption}
                 classes={{
