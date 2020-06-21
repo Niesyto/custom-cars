@@ -68,7 +68,6 @@ export default function Selector(props) {
             <Typography variant="h6" color="textPrimary">
                 {props.name}
             </Typography>
-            {options[0].name}
 
             {options.map((option) => option.name 
             )}
