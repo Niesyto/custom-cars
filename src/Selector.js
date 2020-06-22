@@ -20,6 +20,41 @@ const useStyles = makeStyles({
     },
     indicator: {
         display: "none"
+    },
+    buttonContainer: {
+        color: "rgb(255, 255, 255)",
+        display: "flex",
+        fontFamily: "Roboto, sans-serif",
+        fontSize: "32.8px",
+        height: "57.975px",
+        minHeight: "48px",
+        overflowX: "hidden",
+        overflowY: "hidden",
+    },
+    button: {
+        alignItems: "center",
+        backgroundColor: "rgb(223, 223, 223)",
+        borderWidth: "0px",
+        cursor: "pointer",
+        display: "flex",
+        fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+        fontSize: "15px",
+        fontStretch: "100%",
+        fontWeight: "700",
+        justifyContent: "center",
+        letterSpacing: "0.42855px",
+        margin: "5px",
+        maxWidth: "264px",
+        opacity: "0.7",
+        padding: "6px 12px",
+        textTransform: "uppercase",
+        userSelect: "none",
+        minWidth:"72px"
+    },
+    '@media (min-width: 600px)': {
+        button: {
+          minWidth: "160px"
+        }
     }
 });
 
@@ -81,9 +116,22 @@ export default function Selector(props) {
                         label={option.name}
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                      />
+                        classes={{
+                            root: classes.selectorButton,
+                            selected: classes.selected
+                        }} />
                 )}
             </Tabs>
+            <div className={classes.buttonContainer}>
+                {options.map((option, index) =>
+                    <button
+                        key={index}
+                        onClick={handleClick.bind(this, index)}
+                        className={classes.button} >
+                        {option.name}
+                    </button>
+                )}
+            </div>
         </div>
     );
 }
