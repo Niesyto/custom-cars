@@ -69,9 +69,6 @@ export default function Selector(props) {
                 {props.name}
             </Typography>
 
-            {options.map((option) => option.name 
-            )}
-
             <Tabs
                 value={selectedOption}
                 classes={{
@@ -84,10 +81,7 @@ export default function Selector(props) {
                         label={option.name}
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                        classes={{
-                            root: classes.selectorButton,
-                            selected: classes.selected
-                        }} />
+                      />
                 )}
             </Tabs>
         </div>
