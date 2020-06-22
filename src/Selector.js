@@ -99,7 +99,7 @@ export default function Selector(props) {
                         key={index}
                         onClick={handleClick.bind(this, index)}
                         //Classname is classes.button if not selected and a combination of classes.button and classes.selected if otherwise
-                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button} >
+                        className={classes.button} >
                         {option.name}
                     </button>
                 )}
