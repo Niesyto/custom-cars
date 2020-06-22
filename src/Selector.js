@@ -91,18 +91,15 @@ export default function Selector(props) {
             <Typography variant="h6" color="textPrimary">
                 {props.name}
             </Typography>
-
             <div className={classes.buttonContainer}>
                 {options.map((option, index) =>
-                    //Map each option to a single tab
                     <button
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                        //Classname is classes.button if not selected and a combination of classes.button and classes.selected if otherwise
-                        className={classes.button} >
+                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button}
+                    >
                         {option.name}
-                    </button>
-                )}
+                    </button>)}
             </div>
         </div>
     );

@@ -72,20 +72,16 @@ export default function ColorSelector(props) {
             <Typography variant="h6" color="textPrimary">
                 {props.name}
             </Typography>
-
             <div className={classes.buttonContainer}>
                 {options.map((option, index) =>
-                    //Map each option to a single tab
                     <button
                         style={{ backgroundColor: option.colorValue }}
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                        //Classname is classes.button if not selected and a combination of classes.button and classes.selected if otherwise
-                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button} >
-                    </button>
-                )}
+                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button}
+                    >
+                    </button>)}
             </div>
-
         </div>
     );
 }
