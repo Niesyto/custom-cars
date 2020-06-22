@@ -1,30 +1,42 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    colorSelectorButton: {
+    buttonContainer: {
+        color: "rgb(255, 255, 255)",
+        display: "flex",
+        minHeight: "70px",
+        overflowX: "hidden",
+        overflowY: "hidden",
+    },
+    button: {
         minWidth: "unset",
         width: "60px",
         height: "60px",
         backgroundColor: "#dfdfdf",
         color: "#000000",
-        fontWeight: "bold",
-        lineHeight: "unset",
-        fontSize: "15px",
         margin: "3px",
-        opacity: 1
+        opacity: 1,
+        alignItems: "center",
+        borderWidth: "0px",
+        cursor: "pointer",
+        display: "flex",
+        justifyContent: "center",
+        letterSpacing: "0.42855px",
+        maxWidth: "264px",
+        padding: "6px 12px",
+        textTransform: "uppercase",
+        outline: "none"
     },
-    selectedColor: {
-        color: "#000000",
+    selected: {
+        backgroundColor: "#2b2b2b",
+        opacity: 1,
+        borderColor: "#000000",
         borderWidth: "2px",
         borderStyle: "solid"
     },
-    colorIndicator: {
-        display: "none"
-    }
 });
 
 export default function ColorSelector(props) {
@@ -33,10 +45,10 @@ export default function ColorSelector(props) {
     const [options, setOptions] = React.useState([]);
 
     //Reset selected element after new options are passed
-    useEffect(()=>{
+    useEffect(() => {
         setOptions(props.options);
         setSelectedOption(false);
-    },[props.options])
+    }, [props.options])
 
 
 
@@ -56,29 +68,24 @@ export default function ColorSelector(props) {
             </div>
         )
     return (
-        <div >
+        <div style={{minHeight:"70px"}}>
             <Typography variant="h6" color="textPrimary">
                 {props.name}
             </Typography>
-            <Tabs
-                value={selectedOption}
-                classes={{
-                    indicator: classes.colorIndicator
-                }}
-            >
 
+            <div className={classes.buttonContainer}>
                 {options.map((option, index) =>
                     //Map each option to a single tab
-                    <Tab
+                    <button
                         style={{ backgroundColor: option.colorValue }}
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                        classes={{
-                            root: classes.colorSelectorButton,
-                            selected: classes.selectedColor
-                        }} />
+                        //Classname is classes.button if not selected and a combination of classes.button and classes.selected if otherwise
+                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button} >
+                    </button>
                 )}
-            </Tabs>
+            </div>
+
         </div>
     );
 }

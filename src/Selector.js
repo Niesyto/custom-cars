@@ -1,26 +1,8 @@
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    selectorButton: {
-        backgroundColor: "#dfdfdf",
-        color: "#000000",
-        fontWeight: "bold",
-        lineHeight: "unset",
-        fontSize: "15px",
-        margin: "5px",
-        flexShrink: 1
-    },
-    selected: {
-        backgroundColor: "#2b2b2b",
-        color: "#d4d4d4",
-    },
-    indicator: {
-        display: "none"
-    },
     buttonContainer: {
         color: "rgb(255, 255, 255)",
         display: "flex",
@@ -49,11 +31,17 @@ const useStyles = makeStyles({
         padding: "6px 12px",
         textTransform: "uppercase",
         userSelect: "none",
-        minWidth:"72px"
+        minWidth: "72px",
+        outline: "none"
+    },
+    selected: {
+        backgroundColor: "#2b2b2b",
+        color: "#d4d4d4",
+        opacity: 1
     },
     '@media (min-width: 600px)': {
         button: {
-          minWidth: "160px"
+            minWidth: "160px"
         }
     }
 });
@@ -104,30 +92,14 @@ export default function Selector(props) {
                 {props.name}
             </Typography>
 
-            <Tabs
-                value={selectedOption}
-                classes={{
-                    indicator: classes.indicator
-                }}
-            >
-                {options.map((option, index) =>
-                    //Map each option to a single tab
-                    <Tab
-                        label={option.name}
-                        key={index}
-                        onClick={handleClick.bind(this, index)}
-                        classes={{
-                            root: classes.selectorButton,
-                            selected: classes.selected
-                        }} />
-                )}
-            </Tabs>
             <div className={classes.buttonContainer}>
                 {options.map((option, index) =>
+                    //Map each option to a single tab
                     <button
                         key={index}
                         onClick={handleClick.bind(this, index)}
-                        className={classes.button} >
+                        //Classname is classes.button if not selected and a combination of classes.button and classes.selected if otherwise
+                        className={selectedOption === index ? [classes.selected, classes.button].join(" ") : classes.button} >
                         {option.name}
                     </button>
                 )}
